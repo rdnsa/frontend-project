@@ -4,8 +4,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const clearCartBtn = document.getElementById("clear-cart");
     const checkoutBtn = document.getElementById("checkout-btn");
     const paymentMethod = document.getElementById("payment-method");
+    const invoice = document.getElementById("invoice");
+    const invoiceDetails = document.getElementById("invoice-details");
+    const downloadInvoiceBtn = document.getElementById("download-invoice");
 
-    // Data harga produk (contoh)
+    // Data harga produk
     const productPrices = {
         "Produk 1": 50000,
         "Produk 2": 75000,
@@ -17,21 +20,17 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener("click", function (event) {
             event.preventDefault();
             const productName = this.parentElement.querySelector("h2").innerText;
+            const price = productPrices[productName] || 100000;
 
-            // Cek harga produk
-            const price = productPrices[productName] || 100000; // Default 100k jika tidak ada di daftar
-
-            // Buat elemen list untuk cart
+            // Buat elemen list
             const listItem = document.createElement("li");
             listItem.innerHTML = `${productName} - Rp ${price.toLocaleString()} <button onclick="removeItem(this)">❌</button>`;
             listItem.setAttribute("data-price", price);
-
-            // Tambahkan ke cart
             cartItems.appendChild(listItem);
         });
     });
 
-    // Fungsi hapus semua isi cart
+    // Hapus semua isi cart
     clearCartBtn.addEventListener("click", function () {
         cartItems.innerHTML = "";
     });
@@ -42,23 +41,33 @@ document.addEventListener("DOMContentLoaded", function () {
         const items = cartItems.querySelectorAll("li");
 
         if (items.length === 0) {
-            alert("Keranjang belanja kosong! Silakan tambahkan produk terlebih dahulu.");
+            alert("Keranjang belanja kosong! Silakan tambahkan produk.");
             return;
         }
 
-        // Hitung total harga
         items.forEach(item => {
             total += parseInt(item.getAttribute("data-price"));
         });
 
-        // Ambil metode pembayaran yang dipilih
         const selectedPayment = paymentMethod.value;
+        const invoiceText = `🧾 Nota Pembelian 🧾\n\nTotal: Rp ${total.toLocaleString()}\nMetode Pembayaran: ${selectedPayment}\n\nTerima kasih telah berbelanja!`;
 
-        // Tampilkan konfirmasi pembayaran
-        alert(`🛒 Checkout Berhasil!\nTotal Pembayaran: Rp ${total.toLocaleString()}\nMetode Pembayaran: ${selectedPayment}\n\nSilakan lanjutkan pembayaran sesuai instruksi.`);
+        // Tampilkan nota digital
+        invoiceDetails.innerText = invoiceText;
+        invoice.style.display = "block";
 
         // Kosongkan cart setelah checkout
         cartItems.innerHTML = "";
+    });
+
+    // Download Nota sebagai PDF
+    downloadInvoiceBtn.addEventListener("click", function () {
+        const text = invoiceDetails.innerText;
+        const blob = new Blob([text], { type: "text/plain" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "nota_pembelian.txt"; // Bisa diubah ke .pdf jika pakai library jsPDF
+        link.click();
     });
 });
 
