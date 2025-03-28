@@ -21,6 +21,13 @@ header {
     margin-top: 20px;
 }
 
+.product img {
+    width: 150px;  /* Atur lebar gambar */
+    height: auto;   /* Biarkan tinggi menyesuaikan secara proporsional */
+    border-radius: 8px; /* Opsional: Membuat sudut lebih halus */
+}
+
+
 .product {
     background: white;
     padding: 15px;
