@@ -183,3 +183,14 @@ button:hover {
     background: #9d4edd;
 }
 
+/* Dropdown Metode Pembayaran */
+#payment-method {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #5a189a;
+    background: #1a1a1a;
+    color: white;
+    font-weight: bold;
+}

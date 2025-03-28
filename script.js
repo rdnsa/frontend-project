@@ -1,16 +1,9 @@
-let cartCount = 0;
-
-function tambahKeKeranjang() {
-    cartCount++;
-    document.getElementById("cart-count").innerText = cartCount;
-    alert("Produk berhasil ditambahkan ke keranjang!");
-}
-
 document.addEventListener("DOMContentLoaded", function () {
     const buttons = document.querySelectorAll(".buy-btn");
     const cartItems = document.getElementById("cart-items");
     const clearCartBtn = document.getElementById("clear-cart");
     const checkoutBtn = document.getElementById("checkout-btn");
+    const paymentMethod = document.getElementById("payment-method");
 
     // Data harga produk (contoh)
     const productPrices = {
@@ -25,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             const productName = this.parentElement.querySelector("h2").innerText;
 
-            // Cek apakah produk ada di daftar harga
+            // Cek harga produk
             const price = productPrices[productName] || 100000; // Default 100k jika tidak ada di daftar
 
             // Buat elemen list untuk cart
@@ -33,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
             listItem.innerHTML = `${productName} - Rp ${price.toLocaleString()} <button onclick="removeItem(this)">❌</button>`;
             listItem.setAttribute("data-price", price);
 
-            // Tambahkan ke dalam cart
+            // Tambahkan ke cart
             cartItems.appendChild(listItem);
         });
     });
@@ -58,8 +51,11 @@ document.addEventListener("DOMContentLoaded", function () {
             total += parseInt(item.getAttribute("data-price"));
         });
 
-        // Tampilkan alert konfirmasi checkout
-        alert(`🛒 Checkout Berhasil!\nTotal Pembayaran: Rp ${total.toLocaleString()}\nTerima kasih telah berbelanja!`);
+        // Ambil metode pembayaran yang dipilih
+        const selectedPayment = paymentMethod.value;
+
+        // Tampilkan konfirmasi pembayaran
+        alert(`🛒 Checkout Berhasil!\nTotal Pembayaran: Rp ${total.toLocaleString()}\nMetode Pembayaran: ${selectedPayment}\n\nSilakan lanjutkan pembayaran sesuai instruksi.`);
 
         // Kosongkan cart setelah checkout
         cartItems.innerHTML = "";
