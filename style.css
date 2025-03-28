@@ -118,3 +118,68 @@ button {
 button:hover {
     background: #218838;
 }
+
+/* Sidebar Cart */
+.cart {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 250px;
+    background: #1a1a1a;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: -5px 0 10px rgba(157, 78, 221, 0.5);
+}
+
+/* List Item Cart */
+#cart-items {
+    list-style: none;
+    padding: 0;
+}
+
+#cart-items li {
+    background: #5a189a;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Tombol Hapus Semua */
+#clear-cart {
+    width: 100%;
+    padding: 8px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#clear-cart:hover {
+    background: darkred;
+}
+
+/* Tombol Checkout */
+#checkout-btn {
+    width: 100%;
+    padding: 10px;
+    background: #5a189a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#checkout-btn:hover {
+    background: #9d4edd;
+}
+
